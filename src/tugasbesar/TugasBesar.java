@@ -21,6 +21,5 @@ public class TugasBesar {
             lg.pack();
             lg.setLocationRelativeTo(null);
             lg.setDefaultCloseOperation(login.EXIT_ON_CLOSE);
-        
     }
 }

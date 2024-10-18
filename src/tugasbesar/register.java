@@ -54,9 +54,10 @@ public class register extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1080, 780));
 
         jPanel1.setBackground(new java.awt.Color(47, 79, 79));
-        jPanel1.setPreferredSize(new java.awt.Dimension(360, 460));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 780));
 
         jLabel1.setText("Nama");
 
@@ -72,6 +73,7 @@ public class register extends javax.swing.JFrame {
         jButton_Register.setBackground(new java.awt.Color(0, 153, 204));
         jButton_Register.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Register.setText("REGISTRASI");
+        jButton_Register.setBorder(null);
         jButton_Register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_RegisterActionPerformed(evt);
@@ -93,7 +95,7 @@ public class register extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -102,19 +104,17 @@ public class register extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton_Register)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jpassword2, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                             .addComponent(jNama)
                             .addComponent(jusername)
                             .addComponent(jPassword1))))
                 .addGap(92, 92, 92))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButton_Register))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jLabel5)))
+                .addGap(125, 125, 125)
+                .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -140,8 +140,9 @@ public class register extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addGap(13, 13, 13)
-                .addComponent(jButton_Register))
+                .addGap(7, 7, 7)
+                .addComponent(jButton_Register)
+                .addContainerGap())
         );
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/arrow (1).png"))); // NOI18N
@@ -155,23 +156,24 @@ public class register extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(336, 336, 336)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(367, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addGap(47, 47, 47)
+                .addGap(169, 169, 169)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,20 +198,24 @@ public class register extends javax.swing.JFrame {
         String password2 = jpassword2.getText();
         dbconnection konek = new dbconnection();
         boolean ada = konek.searchUser(userName);
-        if(password.equals(password2) && !ada){
-            konek.insertData(name, userName, password);
-            
-            login lg = new login();
-            lg.setVisible(true);
-            lg.pack();
-            lg.setLocationRelativeTo(null);
-            lg.setDefaultCloseOperation(register.EXIT_ON_CLOSE);
-            dispose();
-        }else if(ada && !password.equals(password2)){
-            JOptionPane.showMessageDialog(rootPane,"Password tidak sama!");
+        if (!name.isEmpty() && !userName.isEmpty() && !password.isEmpty() && !password2.isEmpty()){
+            if(password.equals(password2) && !ada){
+                konek.insertData(name, userName, password);
+                
+                login lg = new login();
+                lg.setVisible(true);
+                lg.pack();
+                lg.setLocationRelativeTo(null);
+                lg.setDefaultCloseOperation(register.EXIT_ON_CLOSE);
+                dispose();
+            }else if(ada && !password.equals(password2)){
+                JOptionPane.showMessageDialog(rootPane,"Password tidak sama!");
+            }else{
+                JOptionPane.showMessageDialog(rootPane,"Username sudah ada!");
+                
+            }
         }else{
-            JOptionPane.showMessageDialog(rootPane,"Username sudah ada!");
-            
+            JOptionPane.showMessageDialog(rootPane,"Mohon isi semua kolom registrasi!");
         }
     }//GEN-LAST:event_jButton_RegisterActionPerformed
 
