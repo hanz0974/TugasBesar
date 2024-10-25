@@ -47,13 +47,13 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(150, 11, 227));
-        setPreferredSize(new java.awt.Dimension(1080, 580));
+        setPreferredSize(new java.awt.Dimension(1080, 780));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(java.awt.Color.darkGray);
         jPanel1.setFocusCycleRoot(true);
         jPanel1.setMinimumSize(new java.awt.Dimension(360, 460));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 580));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1080, 780));
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 

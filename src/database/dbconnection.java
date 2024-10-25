@@ -83,5 +83,36 @@ public class dbconnection {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }
-    // Main method dan lainnya ...
+    public String ambilData(){
+        StringBuilder result = new StringBuilder();
+        String nama;
+        try {
+            // Menghubungkan ke database
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/market","root","");
+            Statement statement = connection.createStatement();
+            String query = "SELECT name FROM login LIMIT 1 "; // Ganti dengan query Anda
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Mengambil data
+            if (resultSet.next()) {
+                nama = resultSet.getString("name");
+            }
+
+            // Menutup koneksi
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Error: " + e.getMessage();
+        }
+
+        // Menghapus koma terakhir
+        if (result.length() > 0) {
+            result.setLength(result.length() - 2); // Menghapus koma dan spasi terakhir
+        }
+
+        return result.toString();
+    }    
 }
+    // Main method dan lainnya ...
