@@ -86,4 +86,42 @@ public class MenuItem extends javax.swing.JPanel {
     private javax.swing.JLabel lb_IconSub;
     private javax.swing.JLabel lb_menuName;
     // End of variables declaration//GEN-END:variables
+    private void showMenu() {
+        new Thread (new Runnable(){
+            @Override
+            public void run(){
+                for (int i = subMenu.size() - 1; i >= 0; i--){
+                    sleep();
+                    subMenu.get(i).setVisible(false);
+                    subMenu.get(i).hideMenu();
+                }
+                getParent().repaint();
+                getParent().revalidate();
+                showing = false;
+            }
+        }).start();
+    }
+
+    private void hideMenu() {
+        new Thread (new Runnable(){
+            @Override
+            public void run(){
+                for (int i = subMenu.size() - 1; i >= 0; i--){
+                    sleep();
+                    subMenu.get(i).setVisible(false);
+                    subMenu.get(i).hideMenu();
+                }
+                getParent().repaint();
+                getParent().revalidate();
+                showing = false;
+            }
+        }).start();
+    }
+    private void sleep(){
+        try{
+            Thread.sleep(20);
+        }catch(Exception e){
+        }
+    }
+
 }
