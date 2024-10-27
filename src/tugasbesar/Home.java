@@ -137,4 +137,20 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel pn_sideBar;
     private javax.swing.JPanel pn_utama;
     // End of variables declaration//GEN-END:variables
+    private void execute() {
+        ImageIcon iconMaster = new ImageIcon(getClass().getResource("/icon/OpenedFolder.png"));
+        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null);
+        addMenu(menuMaster); 
+    }
+    private void addMenu (MenuItem... menu){
+        for(int i = 0; i < menu.length; i ++){
+            pn_menu.add(menu[i]);
+            ArrayList<MenuItem> subMenu = menu[i].getSubMenu();
+            for(MenuItem m : subMenu){
+                addMenu(m);
+            }
+        }
+        pn_menu.revalidate();
+    }
+
 }
