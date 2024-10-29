@@ -199,11 +199,12 @@ public class login extends javax.swing.JFrame {
             if(isValid){
                 Home hm = new Home();
                 hm.setVisible(true);
-                hm.setSize(1080,780 );
+                hm.setSize(MAXIMIZED_BOTH );
                 hm.pack();
                 hm.setLocationRelativeTo(null);
                 hm.setDefaultCloseOperation(login.EXIT_ON_CLOSE);
                 dispose();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Username atau password salah!");
             }

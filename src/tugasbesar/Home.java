@@ -6,6 +6,8 @@ package tugasbesar;
 
 
 import database.dbconnection;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 /**
  *
  * @author USER
@@ -18,6 +20,8 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        
+        execute();
     }
 
     /**
@@ -32,7 +36,7 @@ public class Home extends javax.swing.JFrame {
         pn_navbar = new javax.swing.JPanel();
         pn_sideBar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        menus = new javax.swing.JPanel();
+        pn_menu = new javax.swing.JPanel();
         pn_content = new javax.swing.JPanel();
         pn_utama = new javax.swing.JPanel();
 
@@ -59,9 +63,9 @@ public class Home extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(null);
 
-        menus.setBackground(new java.awt.Color(255, 255, 255));
-        menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane1.setViewportView(menus);
+        pn_menu.setBackground(new java.awt.Color(255, 255, 255));
+        pn_menu.setLayout(new javax.swing.BoxLayout(pn_menu, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(pn_menu);
 
         javax.swing.GroupLayout pn_sideBarLayout = new javax.swing.GroupLayout(pn_sideBar);
         pn_sideBar.setLayout(pn_sideBarLayout);
@@ -131,19 +135,25 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel menus;
     private javax.swing.JPanel pn_content;
+    private javax.swing.JPanel pn_menu;
     private javax.swing.JPanel pn_navbar;
     private javax.swing.JPanel pn_sideBar;
     private javax.swing.JPanel pn_utama;
     // End of variables declaration//GEN-END:variables
     private void execute() {
-        ImageIcon iconMaster = new ImageIcon(getClass().getResource("/icon/OpenedFolder.png"));
-        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null);
-        addMenu(menuMaster); 
+        ImageIcon iconMaster   = new ImageIcon(getClass().getResource("/icon/OpenedFolder.png"));
+        ImageIcon iconBarang   = new ImageIcon(getClass().getResource("/icon/Box.png"));
+        
+        MenuItem konsumsi      = new MenuItem(null, true, iconBarang, "Konsumsi", null);
+        MenuItem nonKonsumsi   = new MenuItem(null, true, iconBarang, "Non Konsumsi", null);
+        
+        MenuItem menuBarang    = new MenuItem(iconMaster, false, null, "Barang", null, konsumsi,nonKonsumsi);
+        
+        addMenu(menuBarang); 
     }
     private void addMenu (MenuItem... menu){
-        for(int i = 0; i < menu.length; i ++){
+        for (int i = 0; i < menu.length; i ++ ) {
             pn_menu.add(menu[i]);
             ArrayList<MenuItem> subMenu = menu[i].getSubMenu();
             for(MenuItem m : subMenu){
@@ -151,6 +161,10 @@ public class Home extends javax.swing.JFrame {
             }
         }
         pn_menu.revalidate();
+    }
+
+    void setSize(int MAXIMIZED_BOTH) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
