@@ -197,7 +197,7 @@ public class login extends javax.swing.JFrame {
         boolean ada = lanjut.searchUser(UserName);
         if(ada){
             if(isValid){
-                Home hm = new Home();
+                Home hm = new Home(UserName);
                 hm.setVisible(true);
                 hm.setSize(MAXIMIZED_BOTH );
                 hm.pack();

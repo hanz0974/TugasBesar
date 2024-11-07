@@ -5,9 +5,11 @@
 package tugasbesar;
 
 
-import database.dbconnection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import static tugasbesar.login.UserName;
 /**
  *
  * @author USER
@@ -16,11 +18,12 @@ public class Home extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
+     * @param UserName
      */
-    public Home() {
+    public Home(String UserName) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        
+        lb_user.setText("Welcome "+UserName+"!");
         execute();
     }
 
@@ -34,6 +37,7 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         pn_navbar = new javax.swing.JPanel();
+        lb_user = new javax.swing.JLabel();
         pn_sideBar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pn_menu = new javax.swing.JPanel();
@@ -42,19 +46,33 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1080, 780));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pn_navbar.setBackground(new java.awt.Color(51, 0, 102));
         pn_navbar.setPreferredSize(new java.awt.Dimension(1084, 70));
+
+        lb_user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_user.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pn_navbarLayout = new javax.swing.GroupLayout(pn_navbar);
         pn_navbar.setLayout(pn_navbarLayout);
         pn_navbarLayout.setHorizontalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1084, Short.MAX_VALUE)
+            .addGroup(pn_navbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         pn_navbarLayout.setVerticalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(pn_navbarLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         getContentPane().add(pn_navbar, java.awt.BorderLayout.PAGE_START);
@@ -100,6 +118,13 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        pn_utama.add(new panelUtama());
+        pn_utama.repaint();
+        pn_utama.revalidate();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -129,12 +154,13 @@ public class Home extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Home().setVisible(true);
+            new Home(UserName).setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_user;
     private javax.swing.JPanel pn_content;
     private javax.swing.JPanel pn_menu;
     private javax.swing.JPanel pn_navbar;
@@ -144,13 +170,31 @@ public class Home extends javax.swing.JFrame {
     private void execute() {
         ImageIcon iconMaster   = new ImageIcon(getClass().getResource("/icon/OpenedFolder.png"));
         ImageIcon iconBarang   = new ImageIcon(getClass().getResource("/icon/Box.png"));
+        ImageIcon iconHome   = new ImageIcon(getClass().getResource("/icon/Home.png"));
         
-        MenuItem konsumsi      = new MenuItem(null, true, iconBarang, "Konsumsi", null);
-        MenuItem nonKonsumsi   = new MenuItem(null, true, iconBarang, "Non Konsumsi", null);
+        MenuItem konsumsi      = new MenuItem(null, true, iconBarang, "Data Barang", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                pn_utama.add(new formBarang());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
         
-        MenuItem menuBarang    = new MenuItem(iconMaster, false, null, "Barang", null, konsumsi,nonKonsumsi);
+        MenuItem nonKonsumsi   = new MenuItem(null, true, iconBarang, "Jenis Barang", null);
+        MenuItem menuHome      = new MenuItem(iconHome, false, null, "Home", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                pn_utama.add(new panelUtama());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
+        MenuItem menuBarang    = new MenuItem(iconMaster, false, null, "Master", null, konsumsi,nonKonsumsi);
         
-        addMenu(menuBarang); 
+        addMenu(menuHome, menuBarang); 
     }
     private void addMenu (MenuItem... menu){
         for (int i = 0; i < menu.length; i ++ ) {
